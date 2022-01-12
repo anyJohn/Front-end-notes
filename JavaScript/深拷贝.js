@@ -10,7 +10,7 @@ const example = {
   },
 };
 
-function deepClone(origin) {
+function cloneDeep(origin) {
   // 判断是否基本类型
   if (origin == undefined || typeof origin !== "object") {
     return origin;
@@ -35,25 +35,6 @@ function deepClone(origin) {
   return target;
 }
 
-const newObj = deepClone(example);
+const newObj = cloneDeep(example);
 newObj.name = "jlf";
 console.log(example, newObj);
-
-function cloneDeep(val) {
-  if (val === undefined || typeof val !== "object") {
-    return val;
-  }
-  if (val instanceof Date) {
-    return new Date(val);
-  }
-  if (val instanceof RegExp) {
-    return new RegExp(val);
-  }
-  const result = new val.constructor();
-  for (let key in val) {
-    if (val.hasOwnProperty(key)) {
-      result[key] = cloneDeep(val[key]);
-    }
-  }
-  return result;
-}

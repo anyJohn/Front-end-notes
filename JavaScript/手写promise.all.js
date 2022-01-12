@@ -64,34 +64,3 @@ function arrAll(promises) {
     });
   });
 }
-
-function all(iterable) {
-  return new Promise((resolve, reject) => {
-    let count = 0;
-    let index = 0;
-    let oneErrorOccurred = false;
-    for (const promise of iterable) {
-      const currentIndex = index;
-      index++;
-      promise.then(
-        (val) => {
-          if (oneErrorOccurred) return;
-          result[currentIndex] = val;
-          if (++count === result.length) {
-            resolve(result);
-          }
-        },
-        (err) => {
-          if (oneErrorOccurred) return;
-          oneErrorOccurred = true;
-          reject(err);
-        }
-      );
-    }
-    if (index === 0) {
-      resolve([]);
-      return;
-    }
-    const result = new Array(index);
-  });
-}
