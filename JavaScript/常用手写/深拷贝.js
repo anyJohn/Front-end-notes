@@ -37,4 +37,4 @@ function cloneDeep(origin) {
 
 const newObj = cloneDeep(example);
 newObj.name = "jlf";
-console.log(example, newObj);
+console.log(example, newObj);    
