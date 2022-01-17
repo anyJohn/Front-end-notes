@@ -2,10 +2,10 @@
   在JavaScript中，判断一个变量的类型常常会使用typeof运算符，但是在判定引用类型时会出现一个问题，无论是什么类型的对象，它都会返回“object”
   instanceof运算符用来测试一个对象在其原型链中是否存在一个构造函数的prototype属性。即检测constructor.prototype是否存在于参数object的原型链上。
 */
-// 1. 
+// 1.
 let timer = new Date();
 console.log(typeof timer); // object
-console.log(timer instanceof Object) // true
+console.log(timer instanceof Object); // true
 console.log(timer instanceof Date); // true
 
 // 2.
@@ -23,3 +23,4 @@ let john = new Student("1024");
 console.log(john); // { number: "1024"}
 console.log(john.feature); // Walk upright
 console.log(john instanceof Person); // true
+console.log(typeof Student); // function

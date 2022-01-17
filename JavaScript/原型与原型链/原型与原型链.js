@@ -4,9 +4,13 @@ function Person(name) {
 }
 let john = new Person("john");
 console.log(john.__proto__ === Person.prototype); // true
-console.log(Person.__proto__ === Function.prototype); //true
+console.log(Person.__proto__ === Function.prototype); // true
+console.log(Object.getPrototypeOf(john) === Person.prototype); // true
 /*
   实例的__proto__（原型），等于构造函数的prototype（原型对象）
+  - Person.prototype,对构造函数使用,原型
+  - Object.getPrototype(john),是ES5中用来获取john的原型对象的标准方法
+  - __proto__,是获取john对象原型对象的非标准方法
 */
 
 // 2.
