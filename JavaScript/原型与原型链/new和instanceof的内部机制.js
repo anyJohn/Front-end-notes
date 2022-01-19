@@ -20,3 +20,10 @@ console.log(p.__proto__);
 function O() {}
 function F() {}
 
+let obj = new O();
+O.prototype = new F();
+console.log(obj instanceof O);
+console.log(obj instanceof F);
+console.log(O.prototype instanceof F);
+console.log(obj === O.prototype);
+console.log(O.prototype === F.prototype);
