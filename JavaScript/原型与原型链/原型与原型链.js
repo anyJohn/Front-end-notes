@@ -1,3 +1,7 @@
+/**
+ * 每个构造函数（constructor）都有一个原型对象（prototype），
+ * 原型对象都包含一个执行构造函数的指针，而实例（instance）都包含一个指向原型对象的内部指针
+ */
 // 1.
 function Person(name) {
   this.name = name;
@@ -12,8 +16,8 @@ console.log(john.constructor === Person.prototype.constructor); // true
   实例的__proto__，等于构造函数的prototype
   构造函数的prototype的constructor指向构造函数
   - Person.prototype,对构造函数使用,指向原型对象
-  - Object.getPrototype(john),是ES5中用来获取john的原型对象的标准方法
-  - __proto__,是获取john对象原型对象的非标准方法
+  - Object.getPrototype(john),是ES5中用来获取john实例的原型对象的标准方法
+  - __proto__,是获取john实例的原型对象的非标准方法
 
   __proto__
   绝大部分浏览器都支持这个非标准的方法访问原型，然而它并不存在于Person.prototype中，
