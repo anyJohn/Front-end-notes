@@ -42,4 +42,22 @@ console.log(function () {}); // [object Function]
 ### 原型和原型链
 
 - 每个构造函数（constructor），都会带一个`prototype`属性，这个属性指向函数的原型对象，并且这个属性是一个`Object`类型的值。
-- 实例也会自带一个属性`__proto__`，指向
+- 实例也会自带一个属性`__proto__`，指向构造函数的原型对象（prototype）。
+- 原型对象中有一个属性`constructor`，指向函数对象。
+- 寻找一条属性时，在此对象内部找不到，会从`__proto__`中查找，直到搜索完所有原型，这就是原型链。
+
+```javascript
+function Person(name) {
+  this.name = name;
+}
+let john = new Person("john");
+console.log(john.__proto__ === Person.prototype); // true
+console.log(Person.__proto__ === Function.prototype); // true
+```
+
+### JavaScript 垃圾回收机制
+
+1. 项目中，如果存在大量不能释放的内存，页面性能就会变得很差。某些代码操作不能合理释放就会造成内存泄漏。尽可能减少使用闭包，因为会消耗内存；
+2. 浏览器垃圾回收机制/内存回收机制
+
+### Event loop 事件循环
