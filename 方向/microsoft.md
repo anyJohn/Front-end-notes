@@ -2,3 +2,5 @@
 
 - 剑指 offer、leetCode100
 - 设计模式
+- typescript
+- react
