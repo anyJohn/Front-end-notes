@@ -8,7 +8,7 @@ function FindGreatestSumOfSubArray(array) {
   // write code here
   let preDp = array[0];
   let dp = 0;
-  let maxsum = array[0];
+  let maxSum = array[0];
   let head = 0,
     tail = 0;
   let resultHead = 0,
@@ -20,10 +20,10 @@ function FindGreatestSumOfSubArray(array) {
       head = tail;
     }
     if (
-      dp > maxsum ||
-      (dp === maxsum && tail - head > resultTail - resultHead)
+      dp > maxSum ||
+      (dp === maxSum && tail - head > resultTail - resultHead)
     ) {
-      maxsum = dp;
+      maxSum = dp;
       resultHead = head;
       resultTail = tail;
     }
