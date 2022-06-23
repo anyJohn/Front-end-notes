@@ -39,18 +39,17 @@
         startBtn.disabled = false;
       }
       function parseTime(count) {
-        let s = (count % 60) + '';
-        if (s.length < 2) {
-          s = '0' + s;
-        }
-        let m = parseInt((count / 60) % 60) + '';
-        if (m.length < 2) {
-          m = '0' + m;
-        }
-        let h = parseInt((count % 60) / 60 / 60) + '';
-        if (h.length < 2) {
-          h = '0' + h;
-        }
+        const parseStr = (str) => {
+          str = str + '';
+          if (str.length < 2) {
+            return `0${str}`;
+          } else {
+            return str;
+          }
+        };
+        let s = parseStr(count % 60);
+        let m = parseStr(parseInt((count / 60) % 60));
+        let h = parseStr(parseInt((count % 60) / 60 / 60));
         return `${h}:${m}:${s}`;
       }
     </script>
