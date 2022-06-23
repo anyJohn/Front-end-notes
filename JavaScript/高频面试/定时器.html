@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <input type="text" id="timer" disabled />
+      <button onclick="pause()" id="pause">pause</button>
+      <button onclick="start()" id="start">start</button>
+      <button onclick="reset()">reset</button>
+    </div>
+    <script>
+      let count = 0;
+      let timer = null;
+      let showTime = '';
+      let timerEle = document.getElementById('timer');
+      let startBtn = document.getElementById('start');
+      timerEle.value = parseTime(count);
+      function start() {
+        startBtn.disabled = true;
+        timer = setInterval(() => {
+          count++;
+          showTime = parseTime(count);
+          timerEle.value = showTime;
+        }, 1000);
+      }
+      function pause() {
+        clearInterval(timer);
+        startBtn.disabled = false;
+      }
+      function reset() {
+        clearInterval(timer);
+        count = 0;
+        timerEle.value = parseTime(count);
+        startBtn.disabled = false;
+      }
+      function parseTime(count) {
+        let s = (count % 60) + '';
+        if (s.length < 2) {
+          s = '0' + s;
+        }
+        let m = parseInt((count / 60) % 60) + '';
+        if (m.length < 2) {
+          m = '0' + m;
+        }
+        let h = parseInt((count % 60) / 60 / 60) + '';
+        if (h.length < 2) {
+          h = '0' + h;
+        }
+        return `${h}:${m}:${s}`;
+      }
+    </script>
+  </body>
+</html>
