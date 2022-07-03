@@ -6,6 +6,15 @@
  * }
  */
 
+// 优化
+function maxDepth(root) {
+  // write code here
+  if (!root) return 0;
+  let left = maxDepth(root.left);
+  let right = maxDepth(root.right);
+  return Math.max(left + 1, right + 1);
+}
+
 /**
  * DFS或者BFS计算深度
  * @param root TreeNode类
