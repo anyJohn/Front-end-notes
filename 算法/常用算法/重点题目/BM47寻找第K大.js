@@ -1,5 +1,5 @@
 /**
- *
+ * 快排思想，找到基准点，然后进行交换。
  * @param a int整型一维数组
  * @param n int整型
  * @param K int整型
@@ -26,6 +26,7 @@ function quickFind(arr, left, right, index) {
     }
     swap(arr, i, j);
   }
+  // i的左侧大于等于基准点，右侧与自己小于基准点
   swap(arr, i, right);
   if (i === index) {
     return arr[i];
@@ -40,6 +41,8 @@ function getPivot(a, left, right) {
   if (a[left] > a[center]) swap(a, left, center);
   if (a[left] > a[right]) swap(a, left, right);
   if (a[center] > a[right]) swap(a, center, right);
+  // 需要注意，把基准点放在数组尾部，
+  // 这样就相当于我们知道基准点的索引了。
   swap(a, center, right);
   return a[right];
 }
