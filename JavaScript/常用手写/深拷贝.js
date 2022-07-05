@@ -29,7 +29,7 @@ function cloneDeep(origin) {
     // origin上是否该属性，排除原型链上的属性
     if (item.hasOwnProperty(item)) {
       // 递归
-      target[item] = deepClone(origin[item]);
+      target[item] = cloneDeep(origin[item]);
     }
   }
   return target;
