@@ -27,10 +27,7 @@ function merge(intervals) {
       result.push(pre);
       pre = intervals[fast];
     } else {
-      pre = new Interval(
-        Math.min(pre.start, fastMin),
-        Math.max(pre.end, fastMax)
-      );
+      pre = new Interval(pre.start, Math.max(pre.end, fastMax));
     }
     if (fast === intervals.length - 1) {
       result.push(pre);
