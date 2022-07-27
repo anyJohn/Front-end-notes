@@ -5,9 +5,9 @@
 
 设计原则：
 
-- 单一职责原则
-- 最少知识原则
-- 开放-封闭原则
+* 单一职责原则
+* 最少知识原则
+* 开放-封闭原则
 
 ## The first part - 基础知识
 
@@ -17,15 +17,15 @@
 
 编程语言按照数据类型的大体分为两类：
 
-- 静态类型语言
-  - 编译时就能发现类型不匹配的错误
-  - 编辑器友好
-  - 编译器可以针对性优化，性能好
-  - 在编写时，需要时刻关心类型，心智负担大，代码量大
-- 动态类型语言
-  - 代码量少，逻辑简单
-  - 可读性好，专注于逻辑表达
-  - 无法保证变量的类型，可能发生类型相关错误
+* 静态类型语言
+  + 编译时就能发现类型不匹配的错误
+  + 编辑器友好
+  + 编译器可以针对性优化，性能好
+  + 在编写时，需要时刻关心类型，心智负担大，代码量大
+* 动态类型语言
+  + 代码量少，逻辑简单
+  + 可读性好，专注于逻辑表达
+  + 无法保证变量的类型，可能发生类型相关错误
 
 鸭子类型（duck typing）：
 
@@ -35,29 +35,29 @@
 
 ```js
 let scholar = {
-  conveyOrders: function (arg) {
-    console.log('奉天承运，皇帝诏曰', arg);
-  },
-  study: function () {
-    console.log('科学研究');
-  },
-  type: 'scholar',
+    conveyOrders: function(arg) {
+        console.log('奉天承运，皇帝诏曰', arg);
+    },
+    study: function() {
+        console.log('科学研究');
+    },
+    type: 'scholar',
 };
 let duck = {
-  conveyOrders: function (arg) {
-    console.log('奉天承运，皇帝诏曰', arg);
-  },
-  duckCall: function () {
-    console.log('嘎嘎嘎！');
-  },
-  type: 'duck',
+    conveyOrders: function(arg) {
+        console.log('奉天承运，皇帝诏曰', arg);
+    },
+    duckCall: function() {
+        console.log('嘎嘎嘎！');
+    },
+    type: 'duck',
 };
 const government = []; // 内阁
 const joinGovernment = (anything) => {
-  if (anything && typeof anything.conveyOrders === 'function') {
-    government.push(anything);
-    console.log(`欢迎${anything.type}加入内阁`);
-  }
+    if (anything && typeof anything.conveyOrders === 'function') {
+        government.push(anything);
+        console.log(`欢迎${anything.type}加入内阁`);
+    }
 };
 joinGovernment(scholar); // 欢迎scholar加入内阁
 joinGovernment(duck); // 欢迎duck加入内阁
@@ -67,26 +67,78 @@ joinGovernment(duck); // 欢迎duck加入内阁
 
 #### 多态
 
-多态的含义是：
+多态的含义是：  
 同一操作作用于不同的对象上面，可以产生不同的解释和不同的执行结果。换句话说，给不同的对象，发送同一个消息的时候，这些对象会根据这个消息分别给出不同的结果。
 
 > 比如圣上发出了圣旨——全天下的动物都叫起来，那么狗会汪汪叫，而鸭子会嘎嘎叫。这就蕴含了多态的思想。
 
-多态的思想是把“做什么”和“谁去做，怎样去做”区分开，也就是将“不变的事物”和“可能改变的事物”区分开。“不变的事物”隔离开，“变化的事物”封装起来，这就给予了我们拓展程序的能力，符合开放-封闭原则。
+多态的思想是：  
+把“做什么”和“谁去做，怎样去做”区分开，也就是将“不变的事物”和“可能改变的事物”区分开。“不变的事物”隔离开，“变化的事物”封装起来，这就给予了我们拓展程序的能力，符合开放-封闭原则。
+
+多态的作用是：  
+通过把过程化的条件分支，转化为对象的多态性，从而消除这些分支语句。
+
+多态的优点是：
+将行为分布在各个对象中，并让这些对象各自负责自己的行为，对象“做什么”和“怎样去做”，达到了解耦的目的，在未来的拓展中，我们只需要加入相应的对象即可，而不必修改之前的代码。
 
 ```js
-let makeSound = function (animal) {
-  animal.sound();
+let makeSound = function(animal) {
+    animal.sound();
 };
-let Duck = function () {};
-Duck.prototype.sound = function () {
-  console.log('嘎嘎嘎！');
+let Duck = function() {};
+Duck.prototype.sound = function() {
+    console.log('嘎嘎嘎！');
 };
-let Dog = function () {};
-Dog.prototype.sound = function () {
-  console.log('汪汪汪！');
+let Dog = function() {};
+Dog.prototype.sound = function() {
+    console.log('汪汪汪！');
 };
 makeSound(new Duck()); // 嘎嘎嘎！
 makeSound(new Dog()); // 汪汪汪！
 ```
 
+##### 静态类型语言的多态
+
+某些时候，在享受静态类型语言检查带来的安全性的同时，我们亦会感觉到被束缚了手脚。比如在之前的代码中，Java 需要限制 makeSound 函数的传参类型，所以我们需要一个超类，来囊括 Duck 和 Dog。
+
+所以静态类型的面向对象语言通常设计成可以向上转型：当给一个类变量赋值时，这个变量的类型既可以使用这个类本身，也可以使用这个类的超类。
+
+而在 Java 中，这就是继承。比如在以下代码中，我们定义了一个Animal抽象类，让Dog和Duck来继承此类，来实现多态。
+
+```java
+public abstract class Animal {
+  abstract void makeSound();
+}
+public class Duck extends Animal {
+  public void makeSound() {
+    System.out.println('嘎嘎嘎！');
+  }
+}
+public class Dog extends Animal {
+  public void makeSound() {
+    System.out.println('汪汪汪！');
+  }
+}
+public class AnimalSound {
+  public void makeSound(Animal animal) {
+    animal.makeSound();
+  }
+}
+public class Test {
+  public static void main(String args[]) {
+    AnimalSound animal = new AnimalSound();
+    Animal duck = new Duck();
+    Animal dog = new Dog();
+    animalSound.makeSound(duck);
+    animalSound.makeSound(dog);
+  }
+}
+```
+
+##### JavaScript的多态
+
+要实现多态，在静态语言中，归根结底，我们需要消除类型之间的耦合关系，在Java中，是向上转型来实现多态。
+
+JavaScript的变量类型在运行期间是可变的，这意味着，JavaScript对象的多态性是与生俱来的。一个对象能否被使用，只取决于它是否有相应的方法，而不取决于它是什么类型的对象，所以JavaScript并不需要注入向上转型之类的技术来实现多态。
+
+在JavaScript中，函数本身也是对象，函数能够被用来封装行为并且被到处传递。当我们对函数发出“调用”的消息时，这些函数会返回不同的结果，这是多态性的一种体现。所以很多设计模式在JavaScript中能够使用高阶函数实现。
