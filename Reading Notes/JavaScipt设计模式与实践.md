@@ -162,8 +162,43 @@ JavaScript的变量类型在运行期间是可变的，这意味着，JavaScript
 
 原型模式不单是一种设计模式，也被称为一种设计泛型。
 
-它至少包含着以下基本规则：
-* 所有的数据都是对象。
-* 要得到一个对象，不是通过实例化类，而是找到一个对象作为原型并克隆它。
-* 对象会记住它的原型。
-* 如果对象无法响应某个请求，它会吧这个请求委托给自己的原型。
+原型模式的实现关键，是语言本身是否提供了Clone的方法，ECMAScript5 提供了Object.create方法，可以用来克隆对象。
+
+```JS
+let Duck = function() {
+    this.sound = '嘎嘎嘎！';
+    this.age = '3 Month';
+}
+let duck = new Duck();
+duck.sound = '嘎嘎咕！'
+duck.age = '4 Month';
+let cloneDuck = Object.create(duck);
+console.log(duck.sound); // '嘎嘎咕！'
+console.log(duck.age); // '4 Month'
+console.log(cloneDuck.sound); // '嘎嘎咕！'
+console.log(cloneDuck.age); // '4 Month'
+```
+
+原型模式至少包含着以下基本规则：
+* 所有的数据都是对象。  
+  JavaScript设计者的本意是除了undefined之外，一切都应该是对象，为了实现这一目标，number、boolean、string也可以通过“包装类”的方法变成对象类型数据来进行处理。JavaScript中的根对象就是Object.prototype，我们在JavaScript中遇到的每个对象，实际上都由它拷贝而来。
+* 要得到一个对象，不是通过实例化类，而是找到一个对象作为原型并克隆它。  
+  JavaScript中没有类的概念，使用new 也只是调用了构造函数，用new创建对象的过程，实际上也只是先克隆Object.prototype然后再进行其他操作。
+* 对象会记住它的原型。  
+  JavaScript 给对象提供了一个名为__proto__的隐藏属性，某个对象的__proto__属性默认会指向它的构造函数的原型对象，即{Constructor}.prototype。
+* 如果对象无法响应某个请求，它会吧这个请求委托给自己的原型。  
+  当一个对象无法响应某个请求的时候，它会顺着原型链把请求传递下去，直到遇到一个可以处理该请求的对象为止。  
+  
+
+```JS
+  let parent = {
+      name: 'john',
+  };
+  let Child = function() {};
+  Child.prototype = parent;
+  let child = new Child();
+  console.log(child.name); // john
+```
+
+在当下的JavaScript引擎下，通过Object.create来创建对象的效率通常比通过构造函数创建对象慢。  
+ES6带来了新的Class愈发，这让JavaScript的写法看起来像是一门拥有类的语言，但是其背后仍然是通过原型机制来创建对象。
