@@ -202,3 +202,19 @@ console.log(cloneDuck.age); // '4 Month'
 
 在当下的JavaScript引擎下，通过Object.create来创建对象的效率通常比通过构造函数创建对象慢。  
 ES6带来了新的Class愈发，这让JavaScript的写法看起来像是一门拥有类的语言，但是其背后仍然是通过原型机制来创建对象。
+
+### this、call、apply
+
+#### this
+
+和其他语言大相径庭的是，JavaScript的this总是指向一个对象，而具体指向哪个对象，是在运行时基于函数的执行环境动态绑定的，而非函数被声明时的环境。
+
+this的指向在实际应用中，大致可分为以下四种：
+* 作为对象的方法调用
+* 作为普通函数调用
+* 构造器调用
+* Function.prototype.call 或 Function.prototype.apply调用
+
+1. 作为对象调用时，this指向该对象。
+2. 作为函数调用时，this总是指向全局对象。在浏览器的JavaScript中，这个全局对象是window对象。 在 ES5 的严格模式（strict）下，这种情况下的this被规定为不会指向全局对象，而是undefined
+3. 构造器调用，大部分JavaScript函数都可以当做构造器使用，当被new运算符调用函数时，该函数会返回一个对象，通常情况下，构造器里的  
