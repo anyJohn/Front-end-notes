@@ -5,10 +5,10 @@
 
 设计原则：
 
-* 单一职责原则
-* 最少知识原则
-* 开放-封闭原则
-* 依赖倒置原则
+- 单一职责原则
+- 最少知识原则
+- 开放-封闭原则
+- 依赖倒置原则
 
 ## The first part - 基础知识
 
@@ -18,15 +18,15 @@
 
 编程语言按照数据类型的大体分为两类：
 
-* 静态类型语言
-  + 编译时就能发现类型不匹配的错误
-  + 编辑器友好
-  + 编译器可以针对性优化，性能好
-  + 在编写时，需要时刻关心类型，心智负担大，代码量大
-* 动态类型语言
-  + 代码量少，逻辑简单
-  + 可读性好，专注于逻辑表达
-  + 无法保证变量的类型，可能发生类型相关错误
+- 静态类型语言
+  - 编译时就能发现类型不匹配的错误
+  - 编辑器友好
+  - 编译器可以针对性优化，性能好
+  - 在编写时，需要时刻关心类型，心智负担大，代码量大
+- 动态类型语言
+  - 代码量少，逻辑简单
+  - 可读性好，专注于逻辑表达
+  - 无法保证变量的类型，可能发生类型相关错误
 
 鸭子类型（duck typing）：
 
@@ -36,29 +36,29 @@
 
 ```js
 let scholar = {
-    conveyOrders: function(arg) {
-        console.log('奉天承运，皇帝诏曰', arg);
-    },
-    study: function() {
-        console.log('科学研究');
-    },
-    type: 'scholar',
+  conveyOrders: function (arg) {
+    console.log('奉天承运，皇帝诏曰', arg);
+  },
+  study: function () {
+    console.log('科学研究');
+  },
+  type: 'scholar',
 };
 let duck = {
-    conveyOrders: function(arg) {
-        console.log('奉天承运，皇帝诏曰', arg);
-    },
-    duckCall: function() {
-        console.log('嘎嘎嘎！');
-    },
-    type: 'duck',
+  conveyOrders: function (arg) {
+    console.log('奉天承运，皇帝诏曰', arg);
+  },
+  duckCall: function () {
+    console.log('嘎嘎嘎！');
+  },
+  type: 'duck',
 };
 const government = []; // 内阁
 const joinGovernment = (anything) => {
-    if (anything && typeof anything.conveyOrders === 'function') {
-        government.push(anything);
-        console.log(`欢迎${anything.type}加入内阁`);
-    }
+  if (anything && typeof anything.conveyOrders === 'function') {
+    government.push(anything);
+    console.log(`欢迎${anything.type}加入内阁`);
+  }
 };
 joinGovernment(scholar); // 欢迎scholar加入内阁
 joinGovernment(duck); // 欢迎duck加入内阁
@@ -83,16 +83,16 @@ joinGovernment(duck); // 欢迎duck加入内阁
 将行为分布在各个对象中，并让这些对象各自负责自己的行为，对象“做什么”和“怎样去做”，达到了解耦的目的，在未来的拓展中，我们只需要加入相应的对象即可，而不必修改之前的代码。
 
 ```js
-let makeSound = function(animal) {
-    animal.sound();
+let makeSound = function (animal) {
+  animal.sound();
 };
-let Duck = function() {};
-Duck.prototype.sound = function() {
-    console.log('嘎嘎嘎！');
+let Duck = function () {};
+Duck.prototype.sound = function () {
+  console.log('嘎嘎嘎！');
 };
-let Dog = function() {};
-Dog.prototype.sound = function() {
-    console.log('汪汪汪！');
+let Dog = function () {};
+Dog.prototype.sound = function () {
+  console.log('汪汪汪！');
 };
 makeSound(new Duck()); // 嘎嘎嘎！
 makeSound(new Dog()); // 汪汪汪！
@@ -104,7 +104,7 @@ makeSound(new Dog()); // 汪汪汪！
 
 所以静态类型的面向对象语言通常设计成可以向上转型：当给一个类变量赋值时，这个变量的类型既可以使用这个类本身，也可以使用这个类的超类。
 
-而在 Java 中，这就是继承。比如在以下代码中，我们定义了一个Animal抽象类，让Dog和Duck来继承此类，来实现多态。
+而在 Java 中，这就是继承。比如在以下代码中，我们定义了一个 Animal 抽象类，让 Dog 和 Duck 来继承此类，来实现多态。
 
 ```java
 public abstract class Animal {
@@ -136,24 +136,25 @@ public class Test {
 }
 ```
 
-##### JavaScript的多态
+##### JavaScript 的多态
 
-要实现多态，在静态语言中，归根结底，我们需要消除类型之间的耦合关系，在Java中，是向上转型来实现多态。
+要实现多态，在静态语言中，归根结底，我们需要消除类型之间的耦合关系，在 Java 中，是向上转型来实现多态。
 
-JavaScript的变量类型在运行期间是可变的，这意味着，JavaScript对象的多态性是与生俱来的。一个对象能否被使用，只取决于它是否有相应的方法，而不取决于它是什么类型的对象，所以JavaScript并不需要注入向上转型之类的技术来实现多态。
+JavaScript 的变量类型在运行期间是可变的，这意味着，JavaScript 对象的多态性是与生俱来的。一个对象能否被使用，只取决于它是否有相应的方法，而不取决于它是什么类型的对象，所以 JavaScript 并不需要注入向上转型之类的技术来实现多态。
 
-在JavaScript中，函数本身也是对象，函数能够被用来封装行为并且被到处传递。当我们对函数发出“调用”的消息时，这些函数会返回不同的结果，这是多态性的一种体现。所以很多设计模式在JavaScript中能够使用高阶函数实现。
+在 JavaScript 中，函数本身也是对象，函数能够被用来封装行为并且被到处传递。当我们对函数发出“调用”的消息时，这些函数会返回不同的结果，这是多态性的一种体现。所以很多设计模式在 JavaScript 中能够使用高阶函数实现。
 
 #### 封装
 
-封装的目的是隐藏信息，狭义的封装指的是封装数据和封装实现。而广义上的封装，还应该包括，封装类型和封装变化。 
-* 封装数据
-  在Java类似的语言中，封装数据是由词法分析实现的，比如Java提供了public、private、protected等关键字来提供不同的访问权限。而JavaScript没有提供这些关键字的支持，我们只能依赖变量的作用域来实现封装数据，模拟public和private。比如使用闭包、或者ES6的Symbol创建私有属性。
-* 封装实现
-  封装实现使得对象内部的变化对其他对象而言是不可见的，对象对自己的行为负责，其他的对象不关心它的内部实现。封装使得对象之间的耦合变得松散，对象之间通过暴露的API来进行通讯。
-* 封装类型
+封装的目的是隐藏信息，狭义的封装指的是封装数据和封装实现。而广义上的封装，还应该包括，封装类型和封装变化。
+
+- 封装数据
+  在 Java 类似的语言中，封装数据是由词法分析实现的，比如 Java 提供了 public、private、protected 等关键字来提供不同的访问权限。而 JavaScript 没有提供这些关键字的支持，我们只能依赖变量的作用域来实现封装数据，模拟 public 和 private。比如使用闭包、或者 ES6 的 Symbol 创建私有属性。
+- 封装实现
+  封装实现使得对象内部的变化对其他对象而言是不可见的，对象对自己的行为负责，其他的对象不关心它的内部实现。封装使得对象之间的耦合变得松散，对象之间通过暴露的 API 来进行通讯。
+- 封装类型
   封装类型是静态类型语言中一种重要的封装方式。一般而言，封装类型是通过抽象类和接口来实现的。把对象的真正类型隐藏在抽象类或者接口后。
-* 封装变化
+- 封装变化
   封装变化是从设计模式角度出发而言的。我们把系统中稳定不变的部分和容易变化的部分隔离分开，在系统演化的过程中，我们只需要替换掉那些容易变化的部分，如果这部分也是封装好的，那么替换也是轻而易举地。这最大程度保证了系统的稳定性和可拓展性。
 
 #### 原型模式和基于原型继承的 JavaScript 对象系统
@@ -162,7 +163,7 @@ JavaScript的变量类型在运行期间是可变的，这意味着，JavaScript
 
 原型模式不单是一种设计模式，也被称为一种设计泛型。
 
-原型模式的实现关键，是语言本身是否提供了Clone的方法，ECMAScript5 提供了Object.create方法，可以用来克隆对象。
+原型模式的实现关键，是语言本身是否提供了 Clone 的方法，ECMAScript5 提供了 Object.create 方法，可以用来克隆对象。
 
 ```JS
 let Duck = function() {
@@ -180,15 +181,15 @@ console.log(cloneDuck.age); // '4 Month'
 ```
 
 原型模式至少包含着以下基本规则：
-* 所有的数据都是对象。  
-  JavaScript设计者的本意是除了undefined之外，一切都应该是对象，为了实现这一目标，number、boolean、string也可以通过“包装类”的方法变成对象类型数据来进行处理。JavaScript中的根对象就是Object.prototype，我们在JavaScript中遇到的每个对象，实际上都由它拷贝而来。
-* 要得到一个对象，不是通过实例化类，而是找到一个对象作为原型并克隆它。  
-  JavaScript中没有类的概念，使用new 也只是调用了构造函数，用new创建对象的过程，实际上也只是先克隆Object.prototype然后再进行其他操作。
-* 对象会记住它的原型。  
-  JavaScript 给对象提供了一个名为__proto__的隐藏属性，某个对象的__proto__属性默认会指向它的构造函数的原型对象，即{Constructor}.prototype。
-* 如果对象无法响应某个请求，它会吧这个请求委托给自己的原型。  
-  当一个对象无法响应某个请求的时候，它会顺着原型链把请求传递下去，直到遇到一个可以处理该请求的对象为止。  
-  
+
+- 所有的数据都是对象。  
+  JavaScript 设计者的本意是除了 undefined 之外，一切都应该是对象，为了实现这一目标，number、boolean、string 也可以通过“包装类”的方法变成对象类型数据来进行处理。 JavaScript 中的根对象就是 Object.prototype ，我们在 JavaScript 中遇到的每个对象，实际上都由它拷贝而来。
+- 要得到一个对象，不是通过实例化类，而是找到一个对象作为原型并克隆它。  
+  JavaScript 中没有类的概念，使用 new 也只是调用了构造函数，用 new 创建对象的过程，实际上也只是先克隆 Object.prototype 然后再进行其他操作。
+- 对象会记住它的原型。  
+  JavaScript 给对象提供了一个名为 **proto** 的隐藏属性，某个对象的 **proto** 属性默认会指向它的构造函数的原型对象，即 {Constructor}.prototype 。
+- 如果对象无法响应某个请求，它会吧这个请求委托给自己的原型。  
+  当一个对象无法响应某个请求的时候，它会顺着原型链把请求传递下去，直到遇到一个可以处理该请求的对象为止。
 
 ```JS
   let parent = {
@@ -200,50 +201,51 @@ console.log(cloneDuck.age); // '4 Month'
   console.log(child.name); // john
 ```
 
-在当下的JavaScript引擎下，通过Object.create来创建对象的效率通常比通过构造函数创建对象慢。  
-ES6带来了新的Class愈发，这让JavaScript的写法看起来像是一门拥有类的语言，但是其背后仍然是通过原型机制来创建对象。
+在当下的 JavaScript 引擎下，通过 Object.create 来创建对象的效率通常比通过构造函数创建对象慢。  
+ES6 带来了新的 Class 愈发，这让 JavaScript 的写法看起来像是一门拥有类的语言，但是其背后仍然是通过原型机制来创建对象。
 
 ### this、call、apply
 
 #### this
 
-和其他语言大相径庭的是，JavaScript的this总是指向一个对象，而具体指向哪个对象，是在运行时基于函数的执行环境动态绑定的，而非函数被声明时的环境。
+和其他语言大相径庭的是，JavaScript 的 this 总是指向一个对象，而具体指向哪个对象，是在运行时基于函数的执行环境动态绑定的，而非函数被声明时的环境。
 
-this的指向在实际应用中，大致可分为以下四种：
-* 作为对象的方法调用
-* 作为普通函数调用
-* 构造器调用
-* Function.prototype.call 或 Function.prototype.apply调用
+this 的指向在实际应用中，大致可分为以下四种：
 
-1. 作为对象调用时，this指向该对象。
-2. 作为函数调用时，this总是指向全局对象。在浏览器的JavaScript中，这个全局对象是window对象。 在 ES5 的严格模式（strict）下，这种情况下的this被规定为不会指向全局对象，而是undefined
-3. 构造器调用，大部分JavaScript函数都可以当做构造器使用，当被new运算符调用函数时，该函数会返回一个对象，通常情况下，构造器里的this就指向这个被返回的对象。  
-  需要注意的是如果构造器显式地返回了一个Object类型的对象，那么此次运算结果最终会返回这个对象，而不是我们期待的this
-4. Function.prototype.call 和 Function.prototype.apply调用。 两者会动态地改变传入函数的this。
+- 作为对象的方法调用
+- 作为普通函数调用
+- 构造器调用
+- Function.prototype.call 或 Function.prototype.apply 调用
 
-##### This的丢失问题
+1. 作为对象调用时，this 指向该对象。
+2. 作为函数调用时，this 总是指向全局对象。在浏览器的 JavaScript 中，这个全局对象是 window 对象。 在 ES5 的严格模式（strict）下，这种情况下的 this 被规定为不会指向全局对象，而是 undefined
+3. 构造器调用，大部分 JavaScript 函数都可以当做构造器使用，当被 new 运算符调用函数时，该函数会返回一个对象，通常情况下，构造器里的 this 就指向这个被返回的对象。  
+   需要注意的是如果构造器显式地返回了一个 Object 类型的对象，那么此次运算结果最终会返回这个对象，而不是我们期待的 this
+4. Function.prototype.call 和 Function.prototype.apply 调用。 两者会动态地改变传入函数的 this。
+
+##### This 的丢失问题
 
 ```js
 let obj = {
-    name: 'jxd',
-    getName: function() {
-        return this.name;
-    }
-}
+  name: 'jxd',
+  getName: function () {
+    return this.name;
+  },
+};
 console.log(obj.getName()); // jxd
 let getName2 = obj.getName;
-console.log(getName2()) // undefined
+console.log(getName2()); // undefined
 ```
 
-在调用getName2时，此时是普通函数调用方式，this是指向全局windows的，所以程序的执行结果是undefined
+在调用 getName2 时，此时是普通函数调用方式，this 是指向全局 window 的，所以程序的执行结果是 undefined
 
-#### call和apply
+#### call 和 apply
 
-在JavaScript的设计模式实现中，两个方法的应用非常广泛，掌握这两个方法是成为JavaScript工程师的重要一步。
-Function.prototype.call 和 Function.prototype.apply它们的作用于洋，区别在于传入参数不同。
-* apply
-  apply接受两个参数，第一个参数指定了函数内this的指向。第二个参数为一个带下标的集合，apply把这个集合中的元素作为参数传递给被调用的函数。
-  
+在 JavaScript 的设计模式实现中，两个方法的应用非常广泛，掌握这两个方法是成为 JavaScript 工程师的重要一步。
+Function.prototype.call 和 Function.prototype.apply 它们的作用于洋，区别在于传入参数不同。
+
+- apply  
+  apply 接受两个参数，第一个参数指定了函数内 this 的指向。第二个参数为一个带下标的集合，apply 把这个集合中的元素作为参数传递给被调用的函数。
 
 ```JS
   let func = function(a, b, c) {
@@ -254,12 +256,12 @@ Function.prototype.call 和 Function.prototype.apply它们的作用于洋，区�
       name: 'jxd',
   };
   func.apply(obj, [1, 2, 3]);
-  // 1 2 3 
+  // 1 2 3
   // jxd
 ```
 
-* call
-  call传入的参数数量不固定，第一个参数与apply一样，欧式当前函数体内的this指向，从第二个参数开始，每个参数被依次传入函数。
+- call  
+  call 传入的参数数量不固定，第一个参数与 apply 一样，欧式当前函数体内的 this 指向，从第二个参数开始，每个参数被依次传入函数。
 
 ```JS
   let func = function(a, b, c) {
@@ -270,11 +272,11 @@ Function.prototype.call 和 Function.prototype.apply它们的作用于洋，区�
       name: 'jxd',
   };
   func.apply(obj, 1, 2, 3);
-  // 1 2 3 
+  // 1 2 3
   // jxd
 ```
 
-需要注意的是，如果我们传入的第一个参数是null，函数体内的this会指向默认的宿主对象，在浏览器中则是window。
+需要注意的是，如果我们传入的第一个参数是 null，函数体内的 this 会指向默认的宿主对象，在浏览器中则是 window。
 
 ```JS
 let func = function(a, b, c) {
