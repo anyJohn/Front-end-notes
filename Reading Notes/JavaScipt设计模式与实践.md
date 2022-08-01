@@ -217,4 +217,68 @@ this的指向在实际应用中，大致可分为以下四种：
 
 1. 作为对象调用时，this指向该对象。
 2. 作为函数调用时，this总是指向全局对象。在浏览器的JavaScript中，这个全局对象是window对象。 在 ES5 的严格模式（strict）下，这种情况下的this被规定为不会指向全局对象，而是undefined
-3. 构造器调用，大部分JavaScript函数都可以当做构造器使用，当被new运算符调用函数时，该函数会返回一个对象，通常情况下，构造器里的  
+3. 构造器调用，大部分JavaScript函数都可以当做构造器使用，当被new运算符调用函数时，该函数会返回一个对象，通常情况下，构造器里的this就指向这个被返回的对象。  
+  需要注意的是如果构造器显式地返回了一个Object类型的对象，那么此次运算结果最终会返回这个对象，而不是我们期待的this
+4. Function.prototype.call 和 Function.prototype.apply调用。 两者会动态地改变传入函数的this。
+
+##### This的丢失问题
+
+```js
+let obj = {
+    name: 'jxd',
+    getName: function() {
+        return this.name;
+    }
+}
+console.log(obj.getName()); // jxd
+let getName2 = obj.getName;
+console.log(getName2()) // undefined
+```
+
+在调用getName2时，此时是普通函数调用方式，this是指向全局windows的，所以程序的执行结果是undefined
+
+#### call和apply
+
+在JavaScript的设计模式实现中，两个方法的应用非常广泛，掌握这两个方法是成为JavaScript工程师的重要一步。
+Function.prototype.call 和 Function.prototype.apply它们的作用于洋，区别在于传入参数不同。
+* apply
+  apply接受两个参数，第一个参数指定了函数内this的指向。第二个参数为一个带下标的集合，apply把这个集合中的元素作为参数传递给被调用的函数。
+  
+
+```JS
+  let func = function(a, b, c) {
+      console.log(a, b, c);
+      console.log(this.name);
+  };
+  let obj = {
+      name: 'jxd',
+  };
+  func.apply(obj, [1, 2, 3]);
+  // 1 2 3 
+  // jxd
+```
+
+* call
+  call传入的参数数量不固定，第一个参数与apply一样，欧式当前函数体内的this指向，从第二个参数开始，每个参数被依次传入函数。
+
+```JS
+  let func = function(a, b, c) {
+      console.log(a, b, c);
+      console.log(this.name);
+  };
+  let obj = {
+      name: 'jxd',
+  };
+  func.apply(obj, 1, 2, 3);
+  // 1 2 3 
+  // jxd
+```
+
+需要注意的是，如果我们传入的第一个参数是null，函数体内的this会指向默认的宿主对象，在浏览器中则是window。
+
+```JS
+let func = function(a, b, c) {
+    console.log(this === window);
+}
+func.apply(null, [1, 2, 3]); // true
+```
