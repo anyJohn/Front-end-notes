@@ -34,7 +34,7 @@
 
 比如圣上需要建立一个内阁，需要 10 位学者来传达圣旨，可是王国找来找去也只有 9 位学者，那么如果有 1 只鸭子，也能够传达圣旨，那么就可以把它加入到我们的内阁里来。
 
-```js
+```JS
 let scholar = {
   conveyOrders: function (arg) {
     console.log('奉天承运，皇帝诏曰', arg);
@@ -82,7 +82,7 @@ joinGovernment(duck); // 欢迎duck加入内阁
 多态的优点是：
 将行为分布在各个对象中，并让这些对象各自负责自己的行为，对象“做什么”和“怎样去做”，达到了解耦的目的，在未来的拓展中，我们只需要加入相应的对象即可，而不必修改之前的代码。
 
-```js
+```JS
 let makeSound = function (animal) {
   animal.sound();
 };
@@ -225,7 +225,7 @@ this 的指向在实际应用中，大致可分为以下四种：
 
 ##### This 的丢失问题
 
-```js
+```JS
 let obj = {
   name: 'jxd',
   getName: function () {
@@ -283,4 +283,20 @@ let func = function(a, b, c) {
     console.log(this === window);
 }
 func.apply(null, [1, 2, 3]); // true
+```
+
+#### call 和 apply 的用途
+
+1. 改变 this 指向
+   比如我们想把 document.getElementById 封装成一个函数，那么作为普通函数，getId 的 this 是 undefined，因为 getElementById 内部也有用到 this，就会出现问题。所以需要改变 this 的指向。
+
+```JS
+document.getElementById = (function(func) {
+  return function() {
+      return func.apply(document, arguments);
+  }
+})(document.getElementById);
+let getId = document.getElementById;
+let div = getId('div1');
+console.log(div.id); // div1
 ```
