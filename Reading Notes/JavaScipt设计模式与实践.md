@@ -34,7 +34,7 @@
 
 比如圣上需要建立一个内阁，需要 10 位学者来传达圣旨，可是王国找来找去也只有 9 位学者，那么如果有 1 只鸭子，也能够传达圣旨，那么就可以把它加入到我们的内阁里来。
 
-```JS
+```js
 let scholar = {
   conveyOrders: function (arg) {
     console.log('奉天承运，皇帝诏曰', arg);
@@ -82,7 +82,7 @@ joinGovernment(duck); // 欢迎duck加入内阁
 多态的优点是：
 将行为分布在各个对象中，并让这些对象各自负责自己的行为，对象“做什么”和“怎样去做”，达到了解耦的目的，在未来的拓展中，我们只需要加入相应的对象即可，而不必修改之前的代码。
 
-```JS
+```js
 let makeSound = function (animal) {
   animal.sound();
 };
@@ -165,13 +165,13 @@ JavaScript 的变量类型在运行期间是可变的，这意味着，JavaScrip
 
 原型模式的实现关键，是语言本身是否提供了 Clone 的方法，ECMAScript5 提供了 Object.create 方法，可以用来克隆对象。
 
-```JS
-let Duck = function() {
-    this.sound = '嘎嘎嘎！';
-    this.age = '3 Month';
-}
+```js
+let Duck = function () {
+  this.sound = '嘎嘎嘎！';
+  this.age = '3 Month';
+};
 let duck = new Duck();
-duck.sound = '嘎嘎咕！'
+duck.sound = '嘎嘎咕！';
 duck.age = '4 Month';
 let cloneDuck = Object.create(duck);
 console.log(duck.sound); // '嘎嘎咕！'
@@ -191,15 +191,15 @@ console.log(cloneDuck.age); // '4 Month'
 - 如果对象无法响应某个请求，它会吧这个请求委托给自己的原型。  
   当一个对象无法响应某个请求的时候，它会顺着原型链把请求传递下去，直到遇到一个可以处理该请求的对象为止。
 
-```JS
+  ```js
   let parent = {
-      name: 'john',
+    name: 'john',
   };
-  let Child = function() {};
+  let Child = function () {};
   Child.prototype = parent;
   let child = new Child();
   console.log(child.name); // john
-```
+  ```
 
 在当下的 JavaScript 引擎下，通过 Object.create 来创建对象的效率通常比通过构造函数创建对象慢。  
 ES6 带来了新的 Class 愈发，这让 JavaScript 的写法看起来像是一门拥有类的语言，但是其背后仍然是通过原型机制来创建对象。
@@ -225,7 +225,7 @@ this 的指向在实际应用中，大致可分为以下四种：
 
 ##### This 的丢失问题
 
-```JS
+```js
 let obj = {
   name: 'jxd',
   getName: function () {
@@ -247,56 +247,56 @@ Function.prototype.call 和 Function.prototype.apply 它们的作用于洋，区
 - apply  
   apply 接受两个参数，第一个参数指定了函数内 this 的指向。第二个参数为一个带下标的集合，apply 把这个集合中的元素作为参数传递给被调用的函数。
 
-```JS
-  let func = function(a, b, c) {
-      console.log(a, b, c);
-      console.log(this.name);
+  ```js
+  let func = function (a, b, c) {
+    console.log(a, b, c);
+    console.log(this.name);
   };
   let obj = {
-      name: 'jxd',
+    name: 'jxd',
   };
   func.apply(obj, [1, 2, 3]);
   // 1 2 3
   // jxd
-```
+  ```
 
-- call  
+- call
   call 传入的参数数量不固定，第一个参数与 apply 一样，欧式当前函数体内的 this 指向，从第二个参数开始，每个参数被依次传入函数。
 
-```JS
-  let func = function(a, b, c) {
-      console.log(a, b, c);
-      console.log(this.name);
+  ```js
+  let func = function (a, b, c) {
+    console.log(a, b, c);
+    console.log(this.name);
   };
   let obj = {
-      name: 'jxd',
+    name: 'jxd',
   };
   func.apply(obj, 1, 2, 3);
   // 1 2 3
   // jxd
-```
+  ```
 
 需要注意的是，如果我们传入的第一个参数是 null，函数体内的 this 会指向默认的宿主对象，在浏览器中则是 window。
 
-```JS
-let func = function(a, b, c) {
-    console.log(this === window);
-}
+```js
+let func = function (a, b, c) {
+  console.log(this === window);
+};
 func.apply(null, [1, 2, 3]); // true
 ```
 
 #### call 和 apply 的用途
 
-1. 改变 this 指向
-   比如我们想把 document.getElementById 封装成一个函数，那么作为普通函数，getId 的 this 是 undefined，因为 getElementById 内部也有用到 this，就会出现问题。所以需要改变 this 的指向。
+1.  改变 this 指向  
+    比如我们想把 document.getElementById 封装成一个函数，那么作为普通函数，getId 的 this 是 undefined，因为 getElementById 内部也有用到 this，就会出现问题。所以需要改变 this 的指向。
 
-```JS
-document.getElementById = (function(func) {
-  return function() {
-      return func.apply(document, arguments);
-  }
-})(document.getElementById);
-let getId = document.getElementById;
-let div = getId('div1');
-console.log(div.id); // div1
-```
+    ```js
+    document.getElementById = (function (func) {
+      return function () {
+        return func.apply(document, arguments);
+      };
+    })(document.getElementById);
+    let getId = document.getElementById;
+    let div = getId('div1');
+    console.log(div.id); // div1
+    ```
