@@ -300,3 +300,52 @@ func.apply(null, [1, 2, 3]); // true
     let div = getId('div1');
     console.log(div.id); // div1
     ```
+
+2.  Function.prototype.bind
+    大部分浏览器都内置了 Function.prototype.bind，用来指定函数内部的 this 指向，我们可以用 call 或者 apply 来模拟一个。
+    比如这里就相当于把 func 函数“包装”了一下，替换成了另一个函数。
+
+    ```js
+    Function.prototype.bind = function (context) {
+      let self = this; // 作为对象的方法被调用，指向对象
+      return function () {
+        return self.apply(context, arguments);
+      };
+    };
+    let obj = {
+      name: 'jxd',
+    };
+    let func = function () {
+      console.log(this.name);
+    }.bind(obj);
+    func();
+    ```
+
+3.  借用其他对象的方法
+
+- 借用构造函数
+  比如在 B 的构造函数中，使用 apply 调用 A 的构造函数，这样 B 就可以使用到 A 里的属性，实现类似继承的效果。
+
+  ```js
+  let A = function (name) {
+    this.name = name;
+  };
+  let B = function () {
+    A.apply(this, arguments);
+  };
+  B.prototype.getName = function () {
+    return this.name;
+  };
+  let b = new B('jxd');
+  console.log(b.getName());
+  ```
+
+- 借用内置方法
+  比如函数的 arguments 是一个类数组对象，有下标。但是不能进行排序和添加操作。我们可以借用 Array.prototype 上的方法。
+
+  ```js
+  (function () {
+    Array.prototype.push.call(arguments, 3);
+    console.log(arguments);
+  })(1, 2);
+  ```
