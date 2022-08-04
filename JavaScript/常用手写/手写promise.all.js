@@ -7,6 +7,7 @@ function all(iterable) {
     let count = 0;
     // 是否有错
     let anErrorOccurred = false;
+    const result = new Array(index);
     // 使用for...of迭代遍历
     for (const promise of iterable) {
       // currentIndex迭代位置
@@ -39,7 +40,6 @@ function all(iterable) {
       resolve([]);
       return;
     }
-    const result = new Array(index);
   });
 }
 
