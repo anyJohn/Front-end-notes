@@ -354,7 +354,7 @@ func.apply(null, [1, 2, 3]); // true
 
 #### 闭包（closure）
 
-##### 前置知识
+##### 两个前置知识
 
 - 变量的作用域
 
@@ -373,5 +373,106 @@ func.apply(null, [1, 2, 3]); // true
   - const、let 新增了块级作用域概念，即 {} 内部声明的变量在其内部才能访问，在 {} 外部是访问不到的。
 
 - 变量的生存周期
+
   - 全局变量的生存周期是永久的，除非我们主动销毁。
   - var 关键字生命的局部变量，当退出函数时，局部变量也会随着函数调用结束而被销毁。
+
+  ```js
+  // 退出函数后，局部变量a将被销毁
+  let func = function () {
+    let a = 1;
+    console.log(a);
+  };
+  func();
+  ```
+
+  ```js
+  /**
+   * 与之前的相反，退出函数后，局部变量a并没有消失，这是因为，当执行 let fn = func(); 时，f返回了一个匿名函数的引用，它可以访问到func()被调用时的函数，而局部变量a一直处在这个环境中，这就产生了一个闭包结构，局部变量的声明看起来被延续了。
+   */
+  let func = function () {
+    let a = 1;
+    return function () {
+      a++;
+      console.log(a);
+    };
+  };
+  let fn = func();
+  fn(); // 2
+  fn(); // 3
+  fn(); // 4
+  ```
+
+根据闭包，我们可以编写 Type 对象来封装一个类型判断工具，代码如下：
+
+```js
+let Type = {};
+for (let i = 0, type; (type = ['String', 'Array', 'Number'][i++]); ) {
+  (function (type) {
+    Type['is' + type] = function (obj) {
+      return Object.prototype.toString.call(obj) === '[object ' + type + ']';
+    };
+  })(type);
+}
+console.log(Type.isArray([])); // true
+console.log(Type.isString('str')); // true
+```
+
+##### 闭包的作用
+
+1. 封装变量
+   闭包可以帮助把一些不需要暴露再全局的变量封装成“私有变量”
+2. 延长变量寿命
+
+3. 可以用闭包来实现面向对象
+
+4. 可以用闭包实现一些设计模式
+
+##### 闭包和面向对象设计
+
+过程与数据的结合是面向对象系统中形容“对象”的常用表达。对象是以方法的形式包含了过程，而闭包则实在过程中以环境的形式包含了数据。所以我们可以用闭包来实现一个完整的面向对象系统。  
+闭包的写法是：
+
+```js
+var extent = function () {
+  var value = 0;
+  return {
+    call: function () {
+      value++;
+      console.log(value);
+    },
+  };
+};
+var extent = extent();
+extent.call(); // 1
+extent.call(); // 2
+```
+
+面向对象的写法是：
+
+```js
+var extent = {
+  value: 0,
+  call: function () {
+    this.value++;
+    console.log(this.value);
+  },
+};
+extent.call(); // 1
+extent.call(); // 2
+```
+
+或者：
+
+```js
+let Extent = function () {
+  this.value = 0;
+};
+Extent.prototype.call = function () {
+  this.value++;
+  console.log(this.value);
+};
+let extent = new Extent();
+extent.call(); // 1
+extent.call(); // 2
+```
