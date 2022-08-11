@@ -476,3 +476,39 @@ let extent = new Extent();
 extent.call(); // 1
 extent.call(); // 2
 ```
+
+##### 闭包和命令模式
+
+命令模式的意图是把请求封装成对象，从而分离请求的发起者和请求的接收者（执行者）之间的耦合关系。在命令执行之前，可以预先往命令对象中植入命令的接收者。
+
+```js
+var Tv = {
+  open: function () {
+    console.log('打开电视机');
+  },
+  close: function () {
+    console.log('关闭电视机');
+  },
+};
+var createCommand = function (receiver) {
+  var execute = function () {
+    return receiver.open();
+  };
+  var undo = function () {
+    return receiver.close();
+  };
+  return {
+    execute: execute,
+    undo: undo,
+  };
+};
+var setCommand = function (command) {
+  document.getElementById('execute').onclick = function () {
+    command.execute();
+  };
+  document.getElementById('undo').onclick = function () {
+    command.undo();
+  };
+};
+setCommand(createCommand(Tv));
+```
