@@ -2,7 +2,7 @@
 
 ## what is Angular?
 
-Angular is an application design framework and development platform for creating efficant and sophisticated signle-page apps whick build on TypeScript.
+Angular is an application design framework and development platform for creating efficient and sophisticated single-page apps which build on TypeScript.
 
 Angular 是一个基于 TypeScript 构建的高效而精美的单页应用的应用设计框架和开发平台。
 
@@ -10,7 +10,7 @@ Angular includes：
 
 - A Component-based framework for building scalable web applications
 - A collection of well-integrated libraries that cover a wide variety of features,including routing,forms management,client-server communication,and more
-- A suite of devloper tools to help you develop,build,test,and update your code
+- A suite of developer tools to help you develop,build,test,and update your code
 
 Angular 包括：
 
