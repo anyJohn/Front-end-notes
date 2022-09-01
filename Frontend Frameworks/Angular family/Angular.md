@@ -24,7 +24,7 @@ Angular 的设计目标之一就是让更新变得更容易，一次可以用最
 
 This section explains Core ideas behind Angular，understanding these ideas can help you design and build your application more effectively.
 
-#### Component
+#### Component 组件
 
 组件是组成应用的构成要素。组件包括三个部分：带有`@component`装饰器的 TypeScript 类、HTML 模板和样式文件。`@component` 装饰器会指定如下 Angular 专属信息：
 
@@ -48,7 +48,7 @@ export class HelloWorldComponent {
 
 组件模型提供了强大的封装能力和直观的应用结构。组件让应用易于单元测试，并提高代码的整体可读性。
 
-#### Template
+#### Template 模板
 
 每个组件都有一个 HTML 模板，用于渲染组件。你可以内联或者通过路径引用外部文件来定义模板。
 在模板中，可以使用 Angular 扩展的语法，使得可以从组件中插入动态值，当组件的状态更改时，Angular 会自动更新已渲染的 DOM。
@@ -93,7 +93,7 @@ export class HelloWorld {
 
 还可以使用指令为模板添加功能，最常用的是 `*ngIf` 和 `*ngFor` 。用指令可以动态修改 DOM 结构。
 
-#### 依赖注入
+#### Dependency injection 依赖注入
 
 依赖注入是实现代码复用的一种方式，让你可以声明 TypeScript 的依赖项，而无需担心如何实例化它们，把数据处理抽象成 service，使得代码更灵活、更可测试、复用性更强。
 
@@ -129,3 +129,19 @@ export class HelloWorldComponent {
   }
 }
 ```
+
+### Angular CLI
+
+Angular 的脚手架工具，提供了打包、热更新运行、生成、单元测试等功能。
+
+### First-part libraries 自带库
+
+Angular 平台提供了众多的自带库，来满足不断成长的应用需求，比如导航、用户输入等。丰富的自带库是 Angular 的优势之一。  
+包括：
+
+- Angular Router，路由器，支持懒加载、嵌套、自定义匹配规则等。
+- Angular Forms，表单，统一的表单填报和验证体系。
+- Angular HttpClient，Http 客户端库，可以支持更高级的客户端-服务器通讯。
+- Angular Animations，动画，用于驱动基于应用状态的动画。
+- Angular PWA，构建渐进式 Web 应用的工具，包括 Service Worker 和 Manifest 清单。
+
