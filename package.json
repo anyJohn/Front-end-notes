@@ -1,0 +1,29 @@
+{
+  "name": "front-end-notes",
+  "version": "1.0.0",
+  "description": "个人的前端笔记",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anyJohn/Front-end-notes.git"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "author": "anyJohn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anyJohn/Front-end-notes/issues"
+  },
+  "homepage": "https://github.com/anyJohn/Front-end-notes#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "husky": "^8.0.1"
+  }
+}
