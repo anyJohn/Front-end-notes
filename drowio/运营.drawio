@@ -1,0 +1,46 @@
+<mxfile host="65bd71144e">
+    <diagram id="u5hPo9zoQSWx3apAe4rC" name="第 1 页">
+        <mxGraphModel dx="1841" dy="789" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="19" value="50" style="group;rounded=1;" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="210" y="120" width="330" height="370" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="曝光" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;direction=west;fillColor=#d5e8d4;strokeColor=#82b366;rounded=1;" vertex="1" parent="19">
+                    <mxGeometry width="330" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="点击" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;direction=west;fillColor=#fff2cc;strokeColor=#d6b656;rounded=1;" vertex="1" parent="19">
+                    <mxGeometry x="30" y="70" width="270" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="转化" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;direction=west;fillColor=#ffe6cc;strokeColor=#d79b00;rounded=1;" vertex="1" parent="19">
+                    <mxGeometry x="60" y="140" width="210" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="销售额" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;direction=west;fillColor=#f8cecc;strokeColor=#b85450;rounded=1;" vertex="1" parent="19">
+                    <mxGeometry x="90" y="210" width="150" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="收入" style="triangle;whiteSpace=wrap;html=1;direction=south;rounded=1;arcSize=33;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="19">
+                    <mxGeometry x="110" y="280" width="110" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.weblogos.youtube;fillColor=#FF2626;gradientColor=#B5171F" vertex="1" parent="1">
+                    <mxGeometry x="160" y="65" width="80" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.webicons.facebook;fillColor=#6294E4;gradientColor=#1A2665" vertex="1" parent="1">
+                    <mxGeometry x="260" y="55" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.webicons.instagram;gradientColor=#DFDEDE" vertex="1" parent="1">
+                    <mxGeometry x="320" y="50" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.webicons.amazon;gradientColor=#DFDEDE" vertex="1" parent="1">
+                    <mxGeometry x="390" y="52" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.webicons.google;gradientColor=#DFDEDE" vertex="1" parent="1">
+                    <mxGeometry x="463.5" y="55" width="50" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.webicons.twitter;fillColor=#49EAF7;gradientColor=#137BD0" vertex="1" parent="1">
+                    <mxGeometry x="540" y="52" width="50" height="50" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
